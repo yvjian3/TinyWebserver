@@ -9,8 +9,6 @@
 * 利用单例模式与阻塞队列实现异步的日志系统，记录服务器运行状态；
 * 利用RAII机制实现了数据库连接池，减少数据库连接建立与关闭的开销，同时实现了用户注册登录功能。
 
-* 增加logsys,threadpool测试单元(todo: timer, sqlconnpool, httprequest, httpresponse) 
-
 ## 环境要求
 * Linux
 * C++14
@@ -27,9 +25,6 @@
 │   ├── pool
 │   ├── server
 │   └── main.cpp
-├── test           单元测试
-│   ├── Makefile
-│   └── test.cpp
 ├── resources      静态资源
 │   ├── index.html
 │   ├── image
@@ -68,13 +63,6 @@ INSERT INTO user(username, password) VALUES('name', 'password');
 ```bash
 make
 ./bin/server
-```
-
-## 单元测试
-```bash
-cd test
-make
-./test
 ```
 
 ## 压力测试
