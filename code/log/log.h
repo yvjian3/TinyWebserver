@@ -60,17 +60,17 @@ private:
 };
 
 #define LOG_BASE(level, format, ...) \
-    do {\
+    {\
         Log* log = Log::Instance();\
         if (log->IsOpen() && log->GetLevel() <= level) {\
             log->write(level, format, ##__VA_ARGS__); \
             log->flush();\
         }\
-    } while(0);
+    } 
 
-#define LOG_DEBUG(format, ...) do {LOG_BASE(0, format, ##__VA_ARGS__)} while(0);
-#define LOG_INFO(format, ...) do {LOG_BASE(1, format, ##__VA_ARGS__)} while(0);
-#define LOG_WARN(format, ...) do {LOG_BASE(2, format, ##__VA_ARGS__)} while(0);
-#define LOG_ERROR(format, ...) do {LOG_BASE(3, format, ##__VA_ARGS__)} while(0);
+#define LOG_DEBUG(format, ...) LOG_BASE(0, format, ##__VA_ARGS__)
+#define LOG_INFO(format, ...)  LOG_BASE(1, format, ##__VA_ARGS__)
+#define LOG_WARN(format, ...)  LOG_BASE(2, format, ##__VA_ARGS__)
+#define LOG_ERROR(format, ...) LOG_BASE(3, format, ##__VA_ARGS__)
 
 #endif //LOG_H
