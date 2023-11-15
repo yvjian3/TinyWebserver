@@ -1,14 +1,15 @@
 # TinyWebserver
-用C++实现的轻量级WEB服务器，经过webbenchh压力测试可以实现上万的QPS
+在Linux环境下基于C++14标准开发的轻量级WEB服务器，能够支持一定数量的客户端并发访问服务器中的图片、视频资源，并完成登录、注册功能，经过webbenchh压力测试可以实现QPS 10000+。
 
 ## 功能
-* 利用IO复用技术Epoll与线程池实现多线程的Reactor高并发模型；
-* 利用正则与状态机解析HTTP请求报文，实现处理静态资源的请求；
-* 利用标准库容器封装char，实现自动增长的缓冲区；
-* 基于小根堆实现的定时器，关闭超时的非活动连接；
+* 使用Socket实现不同主机之间的通信
+* 使用I/O多路复用技术Epoll与线程池实现Reactor高并发模型；
+* 利用正则和有限状态机解析HTTP请求报文，对GET和POST请求进行处理；
+* 对vector进一步封装，实现可缓慢自动增长的缓冲区；
+* 使用vector构建的小根堆，实现定时器，可自动断开超时的非活动连接；
 * 利用单例模式与阻塞队列实现异步的日志系统，记录服务器运行状态；
-* 利用RAII机制实现了数据库连接池，减少数据库连接建立与关闭的开销，同时实现了用户注册登录功能。
-
+* 使用RAII机制实现的数据库连接池，减少数据库连接建立与关闭的开销，并实现用户登录注册功能。
+  
 ## 环境要求
 * Linux
 * C++14
@@ -21,13 +22,13 @@
 │   ├── buffer
 │   ├── http
 │   ├── log
-│   ├── timer
 │   ├── pool
 │   ├── server
+│   ├── timer
 │   └── main.cpp
 ├── resources      静态资源
 │   ├── index.html
-│   ├── image
+│   ├── images
 │   ├── video
 │   ├── js
 │   └── css
@@ -68,9 +69,8 @@ make
 ## 压力测试
 ![image-webbench](https://github.com/markparticle/WebServer/blob/master/readme.assest/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95.png)
 ```bash
-./webbench-1.5/webbench -c 100 -t 10 http://ip:port/
-./webbench-1.5/webbench -c 1000 -t 10 http://ip:port/
 ./webbench-1.5/webbench -c 5000 -t 10 http://ip:port/
+./webbench-1.5/webbench -c 8000 -t 10 http://ip:port/
 ./webbench-1.5/webbench -c 10000 -t 10 http://ip:port/
 ```
 * 测试环境: Ubuntu:19.10 cpu:i5-8400 内存:8G 
